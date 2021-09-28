@@ -11,6 +11,27 @@ import com.algaworks.model.Produto;
 public class OperacoesComTransacaoTest extends EntityManagerTest {
 
 	@Test
+	public void atualizarObjetoGerenciado() {
+		
+		Produto produto = entityManager.find(Produto.class, 1);
+
+
+		produto.setNome("Nome Maluco");
+		entityManager.getTransaction().begin();
+		entityManager.getTransaction().commit();
+		
+		entityManager.clear();
+		
+		Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+		Assert.assertNotNull(produtoVerificacao);
+		Assert.assertEquals("Nome Maluco", produtoVerificacao.getNome()); 
+		
+	}
+
+	
+	
+	
+	@Test
 	public void atualizarObjeto() {
 		
 		Produto produto = new Produto();
