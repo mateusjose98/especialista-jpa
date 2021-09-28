@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.algaworks.ecommerce.EntityManagerTest;
-import com.algaworks.model.Produto;
+import com.algaworks.ecommerce.model.Produto;
 
 public class ConsultandoRegistrosTest extends EntityManagerTest{
 	

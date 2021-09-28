@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.algaworks.model.Produto;
+import com.algaworks.ecommerce.model.Produto;
 
 public class EntityManagerTest {
 	

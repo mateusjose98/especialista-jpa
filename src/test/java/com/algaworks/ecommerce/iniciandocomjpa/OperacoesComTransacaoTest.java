@@ -6,10 +6,80 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.algaworks.ecommerce.EntityManagerTest;
-import com.algaworks.model.Produto;
+import com.algaworks.ecommerce.model.Produto;
 
 public class OperacoesComTransacaoTest extends EntityManagerTest {
 
+	
+	@Test
+	public void mostrarDiferencaPersistMerge() {
+
+		Produto produtoPersist = new Produto();
+		produtoPersist.setId(5);
+		produtoPersist.setDescricao("Celular do mundo!!!!");
+		produtoPersist.setNome("Celular");
+		produtoPersist.setPreco(new BigDecimal(7050.0));
+
+
+		entityManager.getTransaction().begin();
+
+		entityManager.persist(produtoPersist); // em memória temos o próprio obj
+		produtoPersist.setNome("nome estranho para persist");
+
+		entityManager.getTransaction().commit();
+
+		entityManager.clear();
+
+		Produto produtoVerificacaoPersist = entityManager.find(Produto.class, 5);
+		Assert.assertNotNull(produtoVerificacaoPersist);
+		
+		// ----------------
+		
+		Produto produtoMerge = new Produto();
+		produtoMerge.setId(6);
+		produtoMerge.setDescricao("Notebook do mundo!!!!");
+		produtoMerge.setNome("Notebook");
+		produtoMerge.setPreco(new BigDecimal(10050.0));
+
+
+		entityManager.getTransaction().begin();
+
+		produtoMerge = entityManager.merge(produtoMerge); // cria uma cópia e retorna ela
+		produtoMerge.setNome("nome estranho para merge");
+
+		entityManager.getTransaction().commit();
+
+		entityManager.clear();
+
+		Produto produtoVerificacaoMerge = entityManager.find(Produto.class, 6);
+		Assert.assertNotNull(produtoVerificacaoMerge);
+
+	}
+	
+	@Test
+	public void inserirObjetoComMerge() {
+
+		Produto produto = new Produto();
+		produto.setId(4);
+		produto.setDescricao("A melhor Impressora do mundo!!!!");
+		produto.setNome("Impressora HP");
+		produto.setPreco(new BigDecimal(750.0));
+
+
+		entityManager.getTransaction().begin();
+
+		entityManager.merge(produto);
+
+		entityManager.getTransaction().commit();
+
+		entityManager.clear();
+
+		Produto produtoVerificacao = entityManager.find(Produto.class, 2);
+		Assert.assertNotNull(produtoVerificacao);
+
+	}
+	
+	
 	@Test
 	public void atualizarObjetoGerenciado() {
 		
