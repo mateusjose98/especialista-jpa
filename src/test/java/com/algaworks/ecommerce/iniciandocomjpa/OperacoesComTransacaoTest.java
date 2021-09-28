@@ -12,6 +12,28 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 	
 	
 	@Test
+	public void removerObjeto() {
+		
+		Produto entity = entityManager.find(Produto.class, 3);
+		entity.setId(3);
+		
+		entityManager.getTransaction().begin();
+		
+		
+		entityManager.remove(entity);
+		
+		
+		entityManager.getTransaction().commit();
+		
+		Produto produtoVerificacao = entityManager.find(Produto.class, 3);
+		Assert.assertNull(produtoVerificacao);
+		
+		
+		
+		
+	}
+	
+	@Test
 	public void inserirOPrimeiroObjeto() {
 		
 		Produto produto = new Produto();
