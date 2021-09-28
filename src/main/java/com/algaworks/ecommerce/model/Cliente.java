@@ -6,11 +6,12 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity
+@Entity @Table(name = "cliente")
 public class Cliente {
 
     @EqualsAndHashCode.Include
