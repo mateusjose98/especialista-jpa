@@ -24,17 +24,17 @@ Cliente cliente = entityManager.find(Cliente.class, 1);
 		// salvamento do pedido com 1 itempedido
 		Pedido pedido = new Pedido();
 		pedido.setCliente(cliente);
-		pedido.setDataPedido(LocalDateTime.now());
+//		pedido.setDataPedido(LocalDateTime.now());
 		pedido.setStatus(StatusPedido.AGUARDANDO);
 		pedido.setTotal(new BigDecimal(10));
 		
 		Produto p =  entityManager.find(Produto.class, 1);
 		
 		ItemPedido item = new ItemPedido();
-		item.setPedido(pedido);
-		item.setPrecoProduto(BigDecimal.TEN);
-		item.setQuantidade(10);
-		item.setProduto(p);
+//		item.setPedido(pedido);
+//		item.setPrecoProduto(BigDecimal.TEN);
+//		item.setQuantidade(10);
+//		item.setProduto(p);
 		
 		
 		entityManager.getTransaction().begin();
@@ -48,7 +48,7 @@ Cliente cliente = entityManager.find(Cliente.class, 1);
 		// fim salvamento do pedido com 1 itempedido
 		Pedido pedidoBanco = entityManager.find(Pedido.class, 1);
 		
-		System.out.println(pedidoBanco.getItensPedido()); // força o uso dos itens, logo há a consulta
+//		System.out.println(pedidoBanco.getItensPedido()); // força o uso dos itens, logo há a consulta
 		
 		
 		
