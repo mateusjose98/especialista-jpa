@@ -1,15 +1,14 @@
 package com.algaworks.ecommerce.mapeamentoavancao;
 
-import java.util.Arrays;
-import java.util.Collections;
-
-import org.junit.Assert;
-import org.junit.Test;
-
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.Atributo;
 import com.algaworks.ecommerce.model.Cliente;
 import com.algaworks.ecommerce.model.Produto;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 public class ElementCollectionTest extends EntityManagerTest {
 
@@ -42,20 +41,22 @@ public class ElementCollectionTest extends EntityManagerTest {
         Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
         Assert.assertFalse(produtoVerificacao.getAtributos().isEmpty());
     }
-    
+
     @Test
     public void aplicarContato() {
         entityManager.getTransaction().begin();
 
         Cliente cliente = entityManager.find(Cliente.class, 1);
-        cliente.setContatos(Collections.singletonMap("Email", "fernando@email.com" ));
+        cliente.setContatos(Collections.singletonMap("email", "fernando@email.com"));
+
         entityManager.getTransaction().commit();
 
         entityManager.clear();
 
-        Cliente clienteV = entityManager.find(Cliente.class, cliente.getId());
-        Assert.assertEquals("fernando@email.com", clienteV.getContatos().get("Email"));
+        Cliente clienteVerificacao = entityManager.find(Cliente.class, cliente.getId());
+        Assert.assertEquals(
+                "fernando@email.com", clienteVerificacao.getContatos().get("email"));
     }
-    
-    
+
+
 }

@@ -13,16 +13,10 @@ import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @EntityListeners({ GenericoListener.class })
 @Entity
 @Table(name = "produto")
-public class Produto {
-
-    @EqualsAndHashCode.Include
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Produto extends EntidadeBaseInteger {
 
     @Column(name = "data_criacao", updatable = false)
     private LocalDateTime dataCriacao;
@@ -35,6 +29,9 @@ public class Produto {
     private String descricao;
 
     private BigDecimal preco;
+
+    @Lob
+    private byte[] foto;
 
     @ManyToMany
     @JoinTable(name = "produto_categoria",
@@ -50,7 +47,6 @@ public class Produto {
             joinColumns = @JoinColumn(name = "produto_id"))
     @Column(name = "tag")
     private List<String> tags;
-
 
     @ElementCollection
     @CollectionTable(name = "produto_atributo",
