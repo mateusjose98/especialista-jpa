@@ -11,8 +11,28 @@
             <property name="javax.persistence.jdbc.password" value="123456" />
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
 
-            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-            <property name="javax.persistence.sql-load-script-source" value="META-INF/banco-de-dados/dados-iniciais.sql"/>
+            <property name="javax.persistence.schema-generation.database.action"
+                      value="drop-and-create"/>
+
+            <property name="javax.persistence.schema-generation.create-source"
+                      value="metadata-then-script"/>
+            <property name="javax.persistence.schema-generation.drop-source"
+                      value="metadata-then-script"/>
+
+            <property name="javax.persistence.schema-generation.create-script-source"
+                      value="META-INF/banco-de-dados/script-criacao.sql"/>
+            <property name="javax.persistence.schema-generation.drop-script-source"
+                      value="META-INF/banco-de-dados/script-remocao.sql"/>
+
+            <property name="javax.persistence.sql-load-script-source"
+                      value="META-INF/banco-de-dados/dados-iniciais.sql"/>
+
+            <property name="javax.persistence.schema-generation.scripts.action"
+                      value="none"/>
+            <property name="javax.persistence.schema-generation.scripts.create-target"
+                      value="C:/tmp/sql/script-criacao-exportado.sql"/>
+            <property name="javax.persistence.schema-generation.scripts.drop-target"
+                      value="C:/tmp/sql/script-remocao-exportado.sql"/>
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
 
