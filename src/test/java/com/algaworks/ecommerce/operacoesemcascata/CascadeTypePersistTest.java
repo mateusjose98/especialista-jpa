@@ -13,6 +13,29 @@ import java.util.Arrays;
 public class CascadeTypePersistTest extends EntityManagerTest {
 
     // @Test
+    public void persistirProdutoComCategoria() {
+        Produto produto = new Produto();
+        produto.setDataCriacao(LocalDateTime.now());
+        produto.setPreco(BigDecimal.TEN);
+        produto.setNome("Fones de Ouvido");
+        produto.setDescricao("A melhor qualidade de som");
+
+        Categoria categoria = new Categoria();
+        categoria.setNome("Áudio");
+
+        produto.setCategorias(Arrays.asList(categoria)); // CascadeType.PERSIST
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(produto);
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Categoria categoriaVerificacao = entityManager.find(Categoria.class, categoria.getId());
+        Assert.assertNotNull(categoriaVerificacao);
+    }
+
+    // @Test
     public void persistirPedidoComItens() {
         Cliente cliente = entityManager.find(Cliente.class, 1);
         Produto produto = entityManager.find(Produto.class, 1);
@@ -39,9 +62,8 @@ public class CascadeTypePersistTest extends EntityManagerTest {
         entityManager.clear();
 
         Pedido pedidoVerificacao = entityManager.find(Pedido.class, pedido.getId());
-        Assert.assertNotNull(pedido);
-        Assert.assertFalse(pedido.getItens().isEmpty());
-
+        Assert.assertNotNull(pedidoVerificacao);
+        Assert.assertFalse(pedidoVerificacao.getItens().isEmpty());
     }
 
     @Test
@@ -69,7 +91,7 @@ public class CascadeTypePersistTest extends EntityManagerTest {
         entityManager.clear();
 
         Pedido pedidoVerificacao = entityManager.find(Pedido.class, pedido.getId());
-        Assert.assertNotNull(pedido);
+        Assert.assertNotNull(pedidoVerificacao);
     }
 
     // @Test
@@ -93,6 +115,6 @@ public class CascadeTypePersistTest extends EntityManagerTest {
         entityManager.clear();
 
         Cliente clienteVerificacao = entityManager.find(Cliente.class, cliente.getId());
-        Assert.assertNotNull(cliente);
+        Assert.assertNotNull(clienteVerificacao);
     }
 }
