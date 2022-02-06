@@ -55,12 +55,4 @@ public class Cliente extends EntidadeBaseInteger {
             }
         }
     }
-
-	@Override
-	public String toString() {
-		return "Cliente [nome=" + nome + ", cpf=" + cpf + ", contatos=" + contatos + ", primeiroNome=" + primeiroNome
-				+ ", sexo=" + sexo + ", dataNascimento=" + dataNascimento + ", pedidos=" + pedidos + "]";
-	}
-    
-    
 }

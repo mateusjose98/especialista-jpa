@@ -4,6 +4,9 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
     <persistence-unit name="Ecommerce-PU">
+        <mapping-file>META-INF/consultas/pedido.xml</mapping-file>
+        <mapping-file>META-INF/consultas/produto.xml</mapping-file>
+
         <properties>
             <property name="javax.persistence.jdbc.url"
                       value="jdbc:mysql://localhost/algaworks_ecommerce?createDatabaseIfNotExist=true&amp;useTimezone=true&amp;serverTimezone=UTC" />

@@ -11,6 +11,10 @@ import java.util.List;
 
 @Getter
 @Setter
+@NamedQueries({
+    @NamedQuery(name = "Produto.listar", query = "select p from Produto p"),
+    @NamedQuery(name = "Produto.listarPorCategoria", query = "select p from Produto p where exists (select 1 from Categoria c2 join c2.produtos p2 where p2 = p and c2.id = :categoria)")
+})
 @EntityListeners({ GenericoListener.class })
 @Entity
 @Table(name = "produto",

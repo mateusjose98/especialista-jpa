@@ -1,157 +1,98 @@
 package com.algaworks.ecommerce.criteria;
 
-import java.util.List;
+import com.algaworks.ecommerce.EntityManagerTest;
+import com.algaworks.ecommerce.model.Cliente;
+import com.algaworks.ecommerce.model.Pedido;
+import com.algaworks.ecommerce.model.Produto;
+import org.junit.Assert;
+import org.junit.Test;
 
 import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
-import org.junit.Assert;
-import org.junit.Test;
-
-import com.algaworks.ecommerce.EntityManagerTest;
-import com.algaworks.ecommerce.model.Cliente;
-import com.algaworks.ecommerce.model.Pedido;
-import com.algaworks.ecommerce.model.Produto;
-import com.algaworks.ecommerce.model.ProdutoDTO;
+import java.math.BigDecimal;
+import java.util.List;
 
 public class BasicoCriteriaTest extends EntityManagerTest {
-	
-	
-	@Test
-	public void projetarResultadoDTO() {
-		
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<ProdutoDTO> criteria = builder.createQuery(ProdutoDTO.class);
 
-		Root<Produto> root = criteria.from(Produto.class);
+    @Test
+    public void projetarOResultadoTuple() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Tuple> criteriaQuery = criteriaBuilder.createTupleQuery();
+        Root<Produto> root = criteriaQuery.from(Produto.class);
 
-		criteria.select(builder.construct(ProdutoDTO.class, root.get("id"), root.get("nome"))
-				);
+        criteriaQuery.select(criteriaBuilder
+                .tuple(root.get("id").alias("id"), root.get("nome").alias("nome")));
 
-		var typedQuery = entityManager.createQuery(criteria);
+        TypedQuery<Tuple> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Tuple> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
 
-		List<ProdutoDTO> lista = typedQuery.getResultList();
-		lista.forEach(arr -> {
-			System.out.println(arr.getId() + "_" + arr.getNome());
-		}
+        lista.forEach(t -> System.out.println("ID: " + t.get("id") + ", Nome: " + t.get("nome")));
+    }
 
-		);
+    @Test
+    public void projetarOResultado() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+        Root<Produto> root = criteriaQuery.from(Produto.class);
 
-	}
-	
-	@Test
-	public void projetarResultadoTuple() {
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Tuple> criteria = builder.createTupleQuery();
+        criteriaQuery.multiselect(root.get("id"), root.get("nome"));
 
-		Root<Produto> root = criteria.from(Produto.class);
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Object[]> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
 
-		criteria.select(builder.tuple(root.get("id").alias("id"), root.get("nome").alias("nome")));
+        lista.forEach(arr -> System.out.println("ID: " + arr[0] + ", Nome: " + arr[1]));
+    }
 
-		var typedQuery = entityManager.createQuery(criteria);
+    @Test
+    public void retornarTodosOsProdutosExercicio() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Produto> criteriaQuery = criteriaBuilder.createQuery(Produto.class);
+        Root<Produto> root = criteriaQuery.from(Produto.class);
 
-		List<Tuple> lista = typedQuery.getResultList();
-		lista.forEach(arr -> {
-			System.out.println(arr.get("id") + "_" + arr.get("nome"));
-		}
+        criteriaQuery.select(root);
 
-		);
+        TypedQuery<Produto> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<Produto> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+    }
 
-	}
+    @Test
+    public void selecionarUmAtributoParaRetorno() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<BigDecimal> criteriaQuery = criteriaBuilder.createQuery(BigDecimal.class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
 
-	@Test
-	public void projetarResultado() {
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Object[]> criteria = builder.createQuery(Object[].class);
+        criteriaQuery.select(root.get("total"));
 
-		Root<Produto> root = criteria.from(Produto.class);
+        criteriaQuery.where(criteriaBuilder.equal(root.get("id"), 1));
 
-		criteria.multiselect(root.get("id"), root.get("nome"));
+        TypedQuery<BigDecimal> typedQuery = entityManager.createQuery(criteriaQuery);
+        BigDecimal total = typedQuery.getSingleResult();
+        Assert.assertEquals(new BigDecimal("2398.00"), total);
+    }
 
-		var typedQuery = entityManager.createQuery(criteria);
+    @Test
+    public void buscarPorIdentificador() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder.createQuery(Pedido.class);
+        Root<Pedido> root = criteriaQuery.from(Pedido.class);
 
-		List<Object[]> lista = typedQuery.getResultList();
-		lista.forEach(arr -> {
-//			System.out.println(arr[0] + "_" + arr[1]);
-		}
+        criteriaQuery.select(root);
 
-		);
+        criteriaQuery.where(criteriaBuilder.equal(root.get("id"), 1));
 
-	}
+        //String jpql = "select p from Pedido p where p.id = 1";
 
-	@Test
-	public void buscarTodosPedidos() {
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Pedido> criteria = builder.createQuery(Pedido.class);
-		Root<Pedido> root = criteria.from(Pedido.class);
-		criteria.select(root);
+        TypedQuery<Pedido> typedQuery = entityManager
+                //.createQuery(jpql, Pedido.class);
+                .createQuery(criteriaQuery);
 
-		var query = entityManager.createQuery(criteria);
-
-		List<Pedido> pedidos = query.getResultList();
-
-		pedidos.forEach(pedido -> System.out.println(pedido.getId() + " - " + pedido.getStatus()));
-
-	}
-
-	@Test
-	public void retornaAtributoSimples() {
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
-
-		Root<Pedido> root = cq.from(Pedido.class);
-
-		cq.select(root.get("id")).where(cb.equal(root.get("id"), 1L));
-
-		TypedQuery<Long> typedQuery = entityManager.createQuery(cq);
-
-		Long idRetornado = typedQuery.getSingleResult();
-
-		System.out.println(idRetornado);
-
-	}
-
-	@Test
-	public void selecionarUmAtributoRetorno() {
-		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-
-		CriteriaQuery<Cliente> query = criteriaBuilder.createQuery(Cliente.class);
-
-		Root<Pedido> root = query.from(Pedido.class);
-
-		query.select(root.get("cliente"));
-
-		query.where(criteriaBuilder.equal(root.get("id"), 1L));
-
-		TypedQuery<Cliente> typedQuery = entityManager.createQuery(query);
-
-		Cliente cliente = typedQuery.getSingleResult();
-
-		Assert.assertEquals("Fernando Medeiros", cliente.getNome());
-
-	}
-
-	@Test
-	public void buscarPorIdentificador() {
-		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-
-		CriteriaQuery<Pedido> query = criteriaBuilder.createQuery(Pedido.class);
-
-		Root<Pedido> root = query.from(Pedido.class);
-
-		query.select(root);
-
-		query.where(criteriaBuilder.equal(root.get("id"), 1L));
-
-		TypedQuery<Pedido> typedQuery = entityManager.createQuery(query);
-
-		Pedido pedido = typedQuery.getSingleResult();
-
-		Assert.assertNotNull(pedido);
-
-	}
-
+        Pedido pedido = typedQuery.getSingleResult();
+        Assert.assertNotNull(pedido);
+    }
 }
