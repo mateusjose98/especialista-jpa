@@ -1,7 +1,9 @@
 package com.algaworks.ecommerce.consultasnativas;
 
 import com.algaworks.ecommerce.EntityManagerTest;
+import com.algaworks.ecommerce.dto.CategoriaDTO;
 import com.algaworks.ecommerce.dto.ProdutoDTO;
+import com.algaworks.ecommerce.model.Categoria;
 import com.algaworks.ecommerce.model.ItemPedido;
 import com.algaworks.ecommerce.model.Produto;
 import org.junit.Test;
@@ -12,6 +14,46 @@ import java.util.List;
 public class ConsultaNativaTest extends EntityManagerTest {
 
     @Test
+    public void mapearConsultaParaDTOEmArquivoExternoExercicio() {
+        Query query = entityManager.createNamedQuery("ecm_categoria.listar.dto");
+
+        List<CategoriaDTO> lista = query.getResultList();
+
+        lista.stream().forEach(obj -> System.out.println(
+                String.format("CategoriaDTO => ID: %s, Nome: %s", obj.getId(), obj.getNome())));
+    }
+
+    @Test
+    public void usarAquivoXML() {
+        Query query = entityManager.createNamedQuery("ecm_categoria.listar");
+
+        List<Categoria> lista = query.getResultList();
+
+        lista.stream().forEach(obj -> System.out.println(
+                String.format("Categoria => ID: %s, Nome: %s", obj.getId(), obj.getNome())));
+    }
+
+    @Test
+    public void usarUmaNamedNativeQuery02() {
+        Query query = entityManager.createNamedQuery("ecm_produto.listar");
+
+        List<Produto> lista = query.getResultList();
+
+        lista.stream().forEach(obj -> System.out.println(
+                String.format("Produto => ID: %s, Nome: %s", obj.getId(), obj.getNome())));
+    }
+
+    @Test
+    public void usarUmaNamedNativeQuery01() {
+        Query query = entityManager.createNamedQuery("produto_loja.listar");
+
+        List<Produto> lista = query.getResultList();
+
+        lista.stream().forEach(obj -> System.out.println(
+                String.format("Produto => ID: %s, Nome: %s", obj.getId(), obj.getNome())));
+    }
+
+    @Test
     public void usarColumnResultRetornarDTO() {
         String sql = "select * from ecm_produto";
 
@@ -20,7 +62,7 @@ public class ConsultaNativaTest extends EntityManagerTest {
         List<ProdutoDTO> lista = query.getResultList();
 
         lista.stream().forEach(obj -> System.out.println(
-                String.format("Produto => ID: %s, Nome: %s", obj.getId(), obj.getNome())));
+                String.format("ProdutoDTO => ID: %s, Nome: %s", obj.getId(), obj.getNome())));
     }
 
     @Test

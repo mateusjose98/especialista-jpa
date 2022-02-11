@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Getter
@@ -13,6 +14,7 @@ import java.util.List;
         uniqueConstraints = { @UniqueConstraint(name = "unq_nome", columnNames = { "nome" }) })
 public class Categoria extends EntidadeBaseInteger {
 
+    @NotBlank
     @Column(length = 100, nullable = false)
     private String nome;
 

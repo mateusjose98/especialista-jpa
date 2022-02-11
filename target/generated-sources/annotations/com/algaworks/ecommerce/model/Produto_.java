@@ -13,6 +13,7 @@ public abstract class Produto_ extends com.algaworks.ecommerce.model.EntidadeBas
 
 	public static volatile SingularAttribute<Produto, BigDecimal> preco;
 	public static volatile SingularAttribute<Produto, Estoque> estoque;
+	public static volatile SingularAttribute<Produto, Boolean> ativo;
 	public static volatile SingularAttribute<Produto, byte[]> foto;
 	public static volatile ListAttribute<Produto, Categoria> categorias;
 	public static volatile SingularAttribute<Produto, LocalDateTime> dataUltimaAtualizacao;
@@ -24,6 +25,7 @@ public abstract class Produto_ extends com.algaworks.ecommerce.model.EntidadeBas
 
 	public static final String PRECO = "preco";
 	public static final String ESTOQUE = "estoque";
+	public static final String ATIVO = "ativo";
 	public static final String FOTO = "foto";
 	public static final String CATEGORIAS = "categorias";
 	public static final String DATA_ULTIMA_ATUALIZACAO = "dataUltimaAtualizacao";

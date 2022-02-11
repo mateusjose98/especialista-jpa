@@ -12,11 +12,13 @@ C:\Users\jose\Documents\udemy-courses\ecommerce\src\main\java\com\algaworks\ecom
 C:\Users\jose\Documents\udemy-courses\ecommerce\src\main\java\com\algaworks\ecommerce\model\Cliente.java
 C:\Users\jose\Documents\udemy-courses\ecommerce\src\main\java\com\algaworks\ecommerce\model\EnderecoEntregaPedido.java
 C:\Users\jose\Documents\udemy-courses\ecommerce\src\main\java\com\algaworks\ecommerce\model\Estoque.java
+C:\Users\jose\Documents\udemy-courses\ecommerce\src\main\java\com\algaworks\ecommerce\model\converter\BooleanToSimNaoConverter.java
 C:\Users\jose\Documents\udemy-courses\ecommerce\src\main\java\com\algaworks\ecommerce\model\ItemPedido.java
 C:\Users\jose\Documents\udemy-courses\ecommerce\src\main\java\com\algaworks\ecommerce\util\ExportarDDL.java
 C:\Users\jose\Documents\udemy-courses\ecommerce\src\main\java\com\algaworks\ecommerce\model\Pagamento.java
 C:\Users\jose\Documents\udemy-courses\ecommerce\src\main\java\com\algaworks\ecommerce\model\ProdutoDTO.java
 C:\Users\jose\Documents\udemy-courses\ecommerce\src\main\java\com\algaworks\ecommerce\service\NotaFiscalService.java
+C:\Users\jose\Documents\udemy-courses\ecommerce\src\main\java\com\algaworks\ecommerce\dto\CategoriaDTO.java
 C:\Users\jose\Documents\udemy-courses\ecommerce\src\main\java\com\algaworks\ecommerce\model\StatusPedido.java
 C:\Users\jose\Documents\udemy-courses\ecommerce\src\main\java\com\algaworks\ecommerce\model\Atributo.java
 C:\Users\jose\Documents\udemy-courses\ecommerce\src\main\java\com\algaworks\ecommerce\util\IniciarUnidadeDePersistencia.java

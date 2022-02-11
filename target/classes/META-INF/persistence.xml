@@ -6,6 +6,11 @@
     <persistence-unit name="Ecommerce-PU">
         <mapping-file>META-INF/consultas/pedido.xml</mapping-file>
         <mapping-file>META-INF/consultas/produto.xml</mapping-file>
+        <mapping-file>META-INF/consultas/categoria.xml</mapping-file>
+
+        <shared-cache-mode>ALL</shared-cache-mode>
+
+        <validation-mode>CALLBACK</validation-mode>
 
         <properties>
             <property name="javax.persistence.jdbc.url"
@@ -13,6 +18,16 @@
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password" value="123456" />
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+
+            <property name="hibernate.hikari.maximumPoolSize" value="16" />
+            <property name="hibernate.connection.provider_class"
+                      value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" />
+
+            <property name="hibernate.cache.region.factory_class"
+                      value="org.hibernate.cache.jcache.internal.JCacheRegionFactory"/>
+            <property name="hibernate.javax.cache.provider"
+                      value="org.ehcache.jsr107.EhcacheCachingProvider"/>
+            <property name="hibernate.javax.cache.uri" value="META-INF/ehcache.xml"/>
 
             <property name="javax.persistence.schema-generation.database.action"
                       value="drop-and-create"/>
