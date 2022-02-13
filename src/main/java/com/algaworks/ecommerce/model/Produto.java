@@ -56,6 +56,8 @@ import java.util.List;
         indexes = { @Index(name = "idx_nome", columnList = "nome") })
 public class Produto extends EntidadeBaseInteger {
 
+
+
     @PastOrPresent
     @NotNull
     @Column(name = "data_criacao", updatable = false, nullable = false)

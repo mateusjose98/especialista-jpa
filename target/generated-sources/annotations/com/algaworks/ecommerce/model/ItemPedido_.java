@@ -14,12 +14,14 @@ public abstract class ItemPedido_ {
 	public static volatile SingularAttribute<ItemPedido, Pedido> pedido;
 	public static volatile SingularAttribute<ItemPedido, ItemPedidoId> id;
 	public static volatile SingularAttribute<ItemPedido, Integer> quantidade;
+	public static volatile SingularAttribute<ItemPedido, Integer> versao;
 
 	public static final String PRECO_PRODUTO = "precoProduto";
 	public static final String PRODUTO = "produto";
 	public static final String PEDIDO = "pedido";
 	public static final String ID = "id";
 	public static final String QUANTIDADE = "quantidade";
+	public static final String VERSAO = "versao";
 
 }
 
